@@ -2,11 +2,18 @@ import streamlit as st
 from database import Database
 import pandas as pd
 from datetime import datetime
-import gspread
-from google.oauth2.service_account import Credentials
-from gspread_pandas import Spread
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+
+try:
+    import gspread
+    from google.oauth2.service_account import Credentials
+    from google.oauth2 import service_account
+    from googleapiclient.discovery import build
+except ImportError:
+    st.error("""
+        Missing required packages. Please run:
+        pip install gspread google-auth google-api-python-client
+    """)
+    st.stop()
 
 # Initialize database
 db = Database()
